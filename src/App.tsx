@@ -12,7 +12,7 @@ function App() {
     setInputValue(e.target.value);
   }
 
-  async function asyncFunction() {
+  function asyncFunction() {
     setStatus("Async function running");
 
     setTimeout(() => {
