@@ -6,11 +6,12 @@ function App() {
     "Waiting for input" | "Typing" | "Async function running"
   >("Waiting for input");
   const [inputValue, setInputValue] = useState<string>("");
-
+  const [isInitial, setIsInitial] = useState(true);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (status !== "Typing") setStatus("Typing");
     setInputValue(e.target.value);
+    if (isInitial) setIsInitial(false)
   }
 
   function asyncFunction() {
@@ -18,16 +19,18 @@ function App() {
 
     setTimeout(() => {
       setStatus("Waiting for input");
-    }, 1000);
+    }, 2000);
   }
 
   useEffect(() => {
-    const interval = setTimeout(asyncFunction, 3000);
+    let timeout = undefined;
+
+    if (!isInitial) timeout = setTimeout(asyncFunction, 500);
 
     return () => {
-      clearTimeout(interval);
+      clearTimeout(timeout);
     };
-  }, [inputValue]);
+  }, [inputValue, isInitial]);
 
   return (
     <>
