@@ -7,6 +7,7 @@ function App() {
   >("Waiting for input");
   const [inputValue, setInputValue] = useState<string>("");
 
+
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (status !== "Typing") setStatus("Typing");
     setInputValue(e.target.value);
@@ -24,7 +25,7 @@ function App() {
     const interval = setTimeout(asyncFunction, 3000);
 
     return () => {
-      clearInterval(interval);
+      clearTimeout(interval);
     };
   }, [inputValue]);
 
